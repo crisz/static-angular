@@ -97,7 +97,7 @@ module.exports = function serveAngular(config) {
       }
     }
 
-    res.sendFile.call(path.join(angularPath, 'index.html'));
+    res.sendFile(path.join(angularPath, 'index.html'));
     }
 }
 
