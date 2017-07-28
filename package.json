@@ -1,6 +1,6 @@
 {
   "name": "static-angular",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple module to serve statically an angular 2+ app created with @angular/cli",
   "main": "index.js",
   "scripts": {
