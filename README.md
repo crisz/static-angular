@@ -5,6 +5,7 @@ static-angualr is a simple middleware which allows your NodeJS API server to get
 
 ## how to install
 Installing static-angular package is as easy as typing
+
     npm install static-angular
 
 ## how to use
