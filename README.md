@@ -40,11 +40,13 @@ Open *server/middleware.json* and add static-angular
 ### from scratch
 
 Install express-generator
+
     npm install express-generator -g
 
 Run `express my-project`
 
 Install @angular/cli
+
     npm install @angular/cli -g
 
 Open *app.js* file and require *static angular* module
