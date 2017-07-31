@@ -78,7 +78,8 @@ module.exports = function serveAngular(config) {
     }
 
     //serve assets
-    
+
+    const routeRegexp = ( req.route && req.route.regexp ) || /\//g;
 
     if(
       req.url.endsWith('.jpg')  ||
@@ -90,7 +91,7 @@ module.exports = function serveAngular(config) {
       for(let i=0; i<assets.length; i++) {
         if(path.dirname(req.url) === cfg.assetsUrl && assets[i] === path.basename(req.url)) 
           return res.sendFile(path.join(angularAssetsPath, assets[i]));
-        else if(path.dirname(req.url).match(req.route.regexp) && assets[i] === path.basename(req.url))
+        else if(path.dirname(req.url).match(routeRegexp) && assets[i] === path.basename(req.url))
           return res.sendFile(path.join(angularAssetsPath, assets[i]));
       }
 
