@@ -13,9 +13,11 @@ Installing static-angular package is as easy as typing
 ### with ExpressJS
 
 Open *app.js* file and require *static angular* module
+
     const angular = require('static-angular');
 
 Configure static-angular as a middleware
+
     const options = {
       path: 'path/to/angular'
     }
@@ -25,6 +27,7 @@ Configure static-angular as a middleware
 ### with Loopback
 
 Open *server/middleware.json* and add static-angular
+
     "routes": {
       "static-angular": {
          "params": {
@@ -54,6 +57,7 @@ Run `ng new my-project`
 Rename *my-project* folder as *client*
 
 Run
+
     cd client
     npm build
     cd ..
@@ -67,6 +71,7 @@ If you are using NodeJS to expose some API endpoints, you can tell static-angula
       except: '/api'
     }
 or    
+
     const options = {
       except: ['/api', '/users']
     }
