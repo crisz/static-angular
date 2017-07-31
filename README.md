@@ -24,4 +24,52 @@ Configure static-angular as a middleware
 
 ### with Loopback
 
-Open *server/server.js* 
+Open *server/middleware.json* and add static-angular
+    "routes": {
+      "static-angular": {
+         "params": {
+            "path": "$!path/to/angular"
+          }
+      }
+    }
+
+### from scratch
+
+Install express-generator
+    npm install express-generator -g
+
+Run `express my-project`
+
+Install @angular/cli
+    npm install @angular/cli -g
+
+Open *app.js* file and require *static angular* module
+    const angular = require('static-angular');
+
+Use static-angular as a middleware 
+    app.use(angular());
+
+Run `ng new my-project`
+
+Rename *my-project* folder as *client*
+
+Run
+    cd client
+    npm build
+    cd ..
+    npm start
+
+## Set route exceptions
+
+If you are using NodeJS to expose some API endpoints, you can tell static-angular to do not serve angular in that route
+
+    const options = {
+      except: '/api'
+    }
+or    
+    const options = {
+      except: ['/api', '/users']
+    }
+
+
+## Other options
