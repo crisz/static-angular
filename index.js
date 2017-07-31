@@ -47,9 +47,13 @@ module.exports = function serveAngular(config) {
   if(!cfg.assetsUrl.startsWith('/')) throw new Error('assetsUrl parameter should start with /');
   if(this) this.cfg = cfg;
 
-  angularPath = path.join(wkd, cfg.path);
-  angularAssetsPath = path.join(wkd, cfg.path, cfg.assetsFolder);
-
+  if(!path.isAbsolute(cfg.path)) {
+    angularPath = path.join(wkd, cfg.path);
+    angularAssetsPath = path.join(wkd, cfg.path, cfg.assetsFolder);
+  } else {
+    angularPath = cfg.path;
+    angularAssetsPath = path.join(cfg.path, cfg.assetsFolder);
+  }
   assets = fs.existsSync(angularAssetsPath) ? fs.readdirSync(angularAssetsPath) : [];
   if(!fs.existsSync(angularPath)) throw new Error('Cannot find folder ' + angularPath);
   files = fs.readdirSync(angularPath);
