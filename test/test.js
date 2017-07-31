@@ -47,6 +47,18 @@ describe('serve-angular', function () {
         .expect(200, 'custom', done);
     });
 
+    it('should serve cfg.path folder content when HTTP gets / and the path is absolute', function (done) {
+      var cfg = {
+        path: path.join(__dirname,  'client', 'custom')
+      };
+      
+      server = createServer(cfg);
+
+      request(server)
+        .get('/')
+        .expect(200, 'custom', done);
+    });
+
     it('should serve /client/dist content when HTTP gets / and no cfg is provided', function (done) {
       let server = createServer();
 
