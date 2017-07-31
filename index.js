@@ -79,7 +79,7 @@ module.exports = function serveAngular(config) {
 
     //serve assets
 
-    const routeRegexp = ( req.route && req.route.regexp ) || /\//g;
+    const routeRegexp = ( req.route && req.route.regexp ) || /^\/$/;
 
     if(
       req.url.endsWith('.jpg')  ||
@@ -91,8 +91,11 @@ module.exports = function serveAngular(config) {
       for(let i=0; i<assets.length; i++) {
         if(path.dirname(req.url) === cfg.assetsUrl && assets[i] === path.basename(req.url)) 
           return res.sendFile(path.join(angularAssetsPath, assets[i]));
-        else if(path.dirname(req.url).match(routeRegexp) && assets[i] === path.basename(req.url))
-          return res.sendFile(path.join(angularAssetsPath, assets[i]));
+      }
+
+      for(let i=0; i<files.length; i++) {
+        if(routeRegexp.test(path.dirname(req.url)) && files[i] === path.basename(req.url)) 
+          return res.sendFile(path.join(angularPath, files[i]));
       }
 
       return next(new Error('Image not found').status = 404);
