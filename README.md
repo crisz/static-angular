@@ -5,6 +5,7 @@ static-angualr is a simple middleware which allows your NodeJS API server to get
 
 ## how to install
 Installing static-angular package is as easy as typing
+
     npm install static-angular
 
 ## how to use
@@ -39,11 +40,13 @@ Open *server/middleware.json* and add static-angular
 ### from scratch
 
 Install express-generator
+
     npm install express-generator -g
 
 Run `express my-project`
 
 Install @angular/cli
+
     npm install @angular/cli -g
 
 Open *app.js* file and require *static angular* module
