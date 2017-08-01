@@ -136,12 +136,12 @@ function toBeEscaped(url, escape) {
   if (typeof escape === 'object')
     escapeArray = escape;
   for(let i=0; i<escapeArray.length; i++){
-    let path = escapeArray[i];
-    if (path.match(/(\*\.)[a-z]{2,4}$/g)) {
-      if(path.substring(path.lastIndexOf('.')) === url.substring(url.lastIndexOf('.')))
+    let pathToBeEscaped = escapeArray[i];
+    if (pathToBeEscaped.match(/(\*\.)[a-z]{2,4}$/g)) {
+      if(pathToBeEscaped.substring(pathToBeEscaped.lastIndexOf('.')) === url.substring(url.lastIndexOf('.')))
         return true;
     }
-    else if (url === path || url.startsWith(path+'/')) {
+    else if (url === pathToBeEscaped || url.startsWith(pathToBeEscaped+'/')) {
       return true;
     }
     // TODO add more use cases
@@ -149,7 +149,7 @@ function toBeEscaped(url, escape) {
   return false;
 }
 
-function sendFile(path) {
-  fs.createReadStream(path)
+function sendFile(filePath) {
+  fs.createReadStream(filePath)
     .pipe(this);
 }
