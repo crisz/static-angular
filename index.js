@@ -26,7 +26,7 @@ module.exports = function serveAngular(config) {
    * @private
    */
   let defaultConfig = {
-    path: path.join('client','dist'),
+    path: './client/dist',
     assetsFolder: 'assets',
     assetsUrl: '/assets'
   };
@@ -41,9 +41,9 @@ module.exports = function serveAngular(config) {
 
     cfg = Object.assign(defaultConfig, angularCliCfg);
   }
-  
+
   //working directory
-  let wkd = path.normalize(path.dirname(module.parent.id));
+  let wkd = path.normalize(path.dirname(require.main.filename));
 
 
   //if the type of parameter is a string, assume it is the path
@@ -138,7 +138,7 @@ function isOutOfContext(url){
 }
 
 /**
- * Do not serve angular if the path is used for other purposes
+ * Do not serve angular if the path is used for other purposes (e.g. expose API)
  * @private
  */
 function toBeEscaped(url, escape) {
@@ -156,7 +156,6 @@ function toBeEscaped(url, escape) {
     else if (url === pathToBeEscaped || url.startsWith(pathToBeEscaped+'/')) {
       return true;
     }
-    // TODO add more use cases
   }
   return false;
 }
