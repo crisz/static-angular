@@ -25,14 +25,26 @@ module.exports = function serveAngular(config) {
    * default config object
    * @private
    */
-  var defaultConfig = {
+  let defaultConfig = {
     path: path.join('client','dist'),
     assetsFolder: 'assets',
     assetsUrl: '/assets'
   };
 
+  if(!fs.existsSync(path.join(angularPath, '.angular-cli.json')))
+    console.info(angularPath + 'is not an @angular/cli project. This could cause some problem');
+  else {
+    let angularCli = require(path.join(angularPath, '.angular-cli.json'));
+    let angularCliCfg = {
+      path: path.join(angularPath, angularCli.outDir)
+    }
+
+    cfg = Object.assign(defaultConfig, angularCliCfg);
+  }
+  
   //working directory
   let wkd = path.normalize(path.dirname(module.parent.id));
+
 
   //if the type of parameter is a string, assume it is the path
   if (typeof config === 'string')
