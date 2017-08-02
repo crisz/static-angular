@@ -1,6 +1,6 @@
 # static-angular
-[![Known Vulnerabilities](https://snyk.io/test/github/crisz/static-angular/badge.svg)](https://snyk.io/test/github/crisz/static-angular)
-
+[![Known Vulnerabilities](https://snyk.io/test/github/crisz/static-angular/badge.svg)](https://snyk.io/test/github/crisz/static-angular)]
+[![NPM Downloads](https://img.shields.io/npm/dw/static-angular.svg)]
 ---
 
 Simple zero-dependences middleware for serving Angular from a [NodeJS](https://nodejs.org/en/) server, keeping all the comforts of [@angular/cli](https://github.com/angular/angular-cli). 
