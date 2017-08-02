@@ -20,17 +20,24 @@ describe('serve-angular', function () {
       angular.call(ctx, {a: 1, b: 2 });
 
       should(ctx.cfg).hasOwnProperty('path');
-      should(ctx.cfg.path).be.equal(path.join('client', 'dist'));
+      should(ctx.cfg.path).be.equal('./client/dist');
     });
 
     it('should use default path when the parameter is void', function () {
       angular.call(ctx);
 
       should(ctx.cfg).hasOwnProperty('path');
-      should(ctx.cfg.path).be.equal(path.join('client', 'dist'));
+      should(ctx.cfg.path).be.equal('./client/dist');
 
     });
 
+    it('should use .angular-cli.json outdir property as path, if it does not contain index.html', function () {
+      var cfg = { path: './client' };
+      angular.call(ctx, cfg);
+
+      let outDir = require('./client/.angular-cli.json').outDir;
+      should(ctx.angularPath).be.equal(path.join(__dirname, cfg.path, outDir))
+    });
   });
 
   describe('#serving root', function () {
