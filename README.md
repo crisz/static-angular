@@ -1,6 +1,5 @@
 # static-angular
-[![Known Vulnerabilities](https://snyk.io/test/github/crisz/static-angular/badge.svg)](https://snyk.io/test/github/crisz/static-angular)
-[![NPM Downloads](https://img.shields.io/npm/dw/static-angular.svg)
+[![NPM Downloads][downloads-image]][downloads-url]
 ---
 
 Simple zero-dependences middleware for serving Angular from a [NodeJS](https://nodejs.org/en/) server, keeping all the comforts of [@angular/cli](https://github.com/angular/angular-cli). 
@@ -169,3 +168,6 @@ From browser:
 
 ## License
 [MIT](https://github.com/crisz/static-angular/blob/master/LICENSE)
+
+[downloads-image]: https://img.shields.io/npm/dm/static-angular.svg
+[downloads-url]: https://npmjs.org/package/static-angular
