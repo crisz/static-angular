@@ -34,6 +34,7 @@ module.exports = function serveAngular(config) {
   //working directory
   let wkd = path.normalize(path.dirname(require.main.filename));
 
+  if(process.env.NODE_ENV === 'test') wkd = path.normalize(path.join(path.dirname(module.id),'test'))
 
   //if the type of parameter is a string, assume it is the path
   if (typeof config === 'string')
@@ -56,11 +57,12 @@ module.exports = function serveAngular(config) {
     angularAssetsPath = path.join(cfg.path, cfg.assetsFolder);
   }
   assets = fs.existsSync(angularAssetsPath) ? fs.readdirSync(angularAssetsPath) : [];
-  if(!fs.existsSync(angularPath)) throw new Error('Cannot find folder ' + angularPath);
   
+  if(!fs.existsSync(angularPath)) throw new Error('Cannot find folder ' + angularPath);
+
   if(!fs.existsSync(path.join(angularPath, 'index.html')) && 
-    fs.existsSync(path.join(angularPath, '..', '.angular-cli.json')))
-      angularPath = require(path.join(angularPath, '..', '.angular-cli.json')).outDir;
+    fs.existsSync(path.join(angularPath, '.angular-cli.json')))
+      angularPath = path.join(angularPath, require(path.join(angularPath, '.angular-cli')).outDir);
   
   files = fs.readdirSync(angularPath);
 
