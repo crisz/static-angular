@@ -31,17 +31,6 @@ module.exports = function serveAngular(config) {
     assetsUrl: '/assets'
   };
 
-  if(!fs.existsSync(path.join(angularPath, '.angular-cli.json')))
-    console.info(angularPath + 'is not an @angular/cli project. This could cause some problem');
-  else {
-    let angularCli = require(path.join(angularPath, '.angular-cli.json'));
-    let angularCliCfg = {
-      path: path.join(angularPath, angularCli.outDir)
-    }
-
-    cfg = Object.assign(defaultConfig, angularCliCfg);
-  }
-
   //working directory
   let wkd = path.normalize(path.dirname(require.main.filename));
 
@@ -57,7 +46,7 @@ module.exports = function serveAngular(config) {
     throw new TypeError('Parameter type must be a string or an object, ' + typeof config + ' received');
 
   if(!cfg.assetsUrl.startsWith('/')) throw new Error('assetsUrl parameter should start with /');
-  if(this) this.cfg = cfg;
+
 
   if(!path.isAbsolute(cfg.path)) {
     angularPath = path.join(wkd, cfg.path);
@@ -68,8 +57,17 @@ module.exports = function serveAngular(config) {
   }
   assets = fs.existsSync(angularAssetsPath) ? fs.readdirSync(angularAssetsPath) : [];
   if(!fs.existsSync(angularPath)) throw new Error('Cannot find folder ' + angularPath);
+  
+  if(!fs.existsSync(path.join(angularPath, 'index.html')) && 
+    fs.existsSync(path.join(angularPath, '..', '.angular-cli.json')))
+      angularPath = require(path.join(angularPath, '..', '.angular-cli.json')).outDir;
+  
   files = fs.readdirSync(angularPath);
 
+  if(this){
+    this.cfg = cfg;
+    this.angularPath = angularPath;
+  }
   // middleware
   return function serveAngular(req, res, next) {
 
