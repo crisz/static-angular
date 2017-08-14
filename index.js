@@ -61,9 +61,26 @@ module.exports = function serveAngular(config) {
   if(!fs.existsSync(angularPath)) throw new Error('Cannot find folder ' + angularPath);
 
   if(!fs.existsSync(path.join(angularPath, 'index.html')) && 
-    fs.existsSync(path.join(angularPath, '.angular-cli.json')))
-      angularPath = path.join(angularPath, require(path.join(angularPath, '.angular-cli')).outDir);
+    fs.existsSync(path.join(angularPath, '.angular-cli.json'))){
+      let angCli = require(path.join(angularPath, '.angular-cli'));
+      let outDir;
+      if(angCli.apps) {
+        for(let i=0; i<angCli.apps.length; i++) {
+          if(angCli.apps[i].outDir)
+            outDir = angCli.apps[i].outDir;
+        }
+      }
+      else {
+        outDir = angCli.outDir;
+      }
+
+      if(!outDir) console.log('.angular-cli.json does not contain any "outDir" property');
+      
+      angularPath = path.join(angularPath, outDir);
+    }
   
+  
+  if(!fs.existsSync(angularPath)) throw new Error(angularPath + ' does not exist. Run "ng build" to generate it');
   files = fs.readdirSync(angularPath);
 
   if(this){
